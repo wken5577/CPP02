@@ -10,12 +10,14 @@ Fixed::Fixed()
 
 Fixed::Fixed(const int value)
 {
+	std::cout << "Int constructor called" << std::endl;
 	int tmp = value << Fixed::fractionalBit;
 	this->value = tmp;
 }
 
 Fixed::Fixed(const float value)
 {
+	std::cout << "Float constructor called" << std::endl;
 	int tmp = std::roundf(value * (1 << Fixed::fractionalBit));
 	this->value = tmp;
 }
@@ -59,4 +61,10 @@ Fixed& Fixed::operator= (const Fixed& data)
 	std::cout << "Copy assignment operator called" << std::endl;
 	value = data.getRawBits();
 	return *this;
+}
+
+std::ostream & operator << (std::ostream &out, const Fixed &data)
+{
+	out << data.toFloat();
+	return out;
 }
